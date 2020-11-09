@@ -1,15 +1,30 @@
-
 package main;
-
 
 public class a3 {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
+    /* initial input */
+    public void startInput() {
 
-        System.out.println("This is CSCI262 A3");
     }
-    
+
+    /* activity engine and the logs */
+    public void simulateEngine() {
+
+    }
+
+    /* analysis engine */
+    public void analysisEngine() {
+
+    }
+
+    /* alert engine */
+    public void alertEngine() {
+
+    }
+
+    public static void main(String[] args) {
+        a3 A3 = new a3();
+
+    }
+
 }
