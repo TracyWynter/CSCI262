@@ -9,7 +9,10 @@ public class MainSys {
         /* check for the right args length*/
         if (args.length == 4) {
             int days = Integer.parseInt(args[3]); // get days 
-            System.out.println(days);
+            boolean valid = ids.validateInput(args);
+            if(valid){
+                System.out.println("Valid");
+            }
             
             ids.startInput();
             
