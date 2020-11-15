@@ -15,6 +15,7 @@ public class MainSys {
             }
             
             ids.startInput(args[1], args[2]);
+           
             
         } else {
             System.out.println("Invalid number of arguments");
