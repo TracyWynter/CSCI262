@@ -18,9 +18,9 @@ public class IDS {
     /* MAIN METHODS */
 
  /* initial input */
-    public void startInput() {
-        readStatFile();
-        readEventFile();
+    public void startInput(String eventsFile, String statsFile) {
+        readStatFile(statsFile);
+        readEventFile(eventsFile);
     }
 
     /* activity engine and the logs */
@@ -39,9 +39,9 @@ public class IDS {
     }
 
     /* SUB METHODS */
-    public static void readStatFile() {
-        
-        String statsFile = "src/main/Stats.txt";
+    public static void readStatFile(String statsName) {
+
+        String statsFile = "src/main/" + statsName;
         //file name is hardcoded in
         File myFile = new File("main/Stats.txt");
         try {
@@ -65,8 +65,8 @@ public class IDS {
                 //Spliting up to each data in the line
                 double meanLogin, sdLogin;
 
-                String[] loginDetails = logins.split(":");
-                String eventName1 = loginDetails[0];
+                String[] loginDetails = logins.split(":"); // [Logins , 4, 1.5]
+                String eventName1 = loginDetails[0]; // Logins
                 meanLogin = Double.parseDouble(loginDetails[1]);
                 try {
                     if (loginDetails[1] != null) {
@@ -233,8 +233,8 @@ public class IDS {
         }
     }
 
-    public static void readEventFile() {
-        String eventsFile = "src/main/Events.txt";
+    public static void readEventFile(String eventName) {
+        String eventsFile = "src/main/" + eventName;
         try {
             //file name is hardcoded in
             File myFile = new File("/main/Events.txt");
