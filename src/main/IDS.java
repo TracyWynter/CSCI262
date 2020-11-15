@@ -35,7 +35,7 @@ public class IDS {
  /* initial input */
     public void startInput(String eventsFile, String statsFile) {
         readStatFile(statsFile);
-//        readEventFile(eventsFile);
+        readEventFile(eventsFile);
     }
 
     /* activity engine and the logs */
@@ -58,6 +58,39 @@ public class IDS {
         for (String s : list) {
             System.out.println(s);
         }
+    }
+
+    public static void readEventFile(String file) {
+        String eventFile = file;
+        try {
+            //Scanner sct = new Scanner (myFile);
+
+            //Reading the first line of the file
+            int n = 0;
+            String numberOfEvents = Files.readAllLines(Paths.get(eventFile)).get(n);
+            //Printing the first line 
+            //System.out.println(numberOfEvents);
+            int eventCount = Integer.parseInt(numberOfEvents);
+
+            while (n < eventCount) {
+                String eventText = Files.readAllLines(Paths.get(eventFile)).get(++n);
+                String[] eventLine = eventText.split(":");
+                eventList.add(eventLine[0]);
+                cdEventList.add(eventLine[1]);
+                minimumList.add(eventLine[2]);
+                maximumList.add(eventLine[3]);
+                weightList.add(eventLine[4]);
+
+            }
+
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+        printList(eventList);
+        printList(cdEventList);
+        printList(minimumList);
+        printList(maximumList);
+        printList(weightList);
     }
 
     public static void readStatFile(String file) {
