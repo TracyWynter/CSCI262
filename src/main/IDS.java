@@ -6,14 +6,7 @@ import java.nio.file.Files;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.util.*;
-import java.io.*;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.NoSuchFileException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class IDS {
 
@@ -61,7 +54,9 @@ public class IDS {
     }
 
     public static void readEventFile(String file) {
-        String eventFile = file;
+//        String eventFile = file; // command line
+        String eventFile = "src/main/" + file; // netbeans
+
         try {
             //Scanner sct = new Scanner (myFile);
 
@@ -94,8 +89,8 @@ public class IDS {
     }
 
     public static void readStatFile(String file) {
-//        String statsFile = "src/main/" + file;  // netbeans
-        String statsFile = file;
+        String statsFile = "src/main/" + file;  // netbeans
+//        String statsFile = file; // command line
         try {
             //Reading the first line of the file
             int n = 0;
