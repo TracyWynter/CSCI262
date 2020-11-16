@@ -73,7 +73,7 @@ public class IDS {
                 eventList.add(eventLine[0]);
                 cdEventList.add(eventLine[1]);
                 minimumList.add(Integer.parseInt(eventLine[2]));
-                int maximum = 0;
+                int maximum;
                 try {
                     maximum = Integer.parseInt(eventLine[3]);
                 } catch (NumberFormatException ex) {
