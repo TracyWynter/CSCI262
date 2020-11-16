@@ -27,17 +27,27 @@ public class IDS {
 
  /* initial input */
     public void startInput(String eventsFile, String statsFile) {
+        /* Read and Store File Information */
         readStatFile(statsFile);
         readEventFile(eventsFile);
     }
 
     /* activity engine and the logs */
     public void simulateEngine() {
+        /* Printing current progress */
+        System.out.println("File Reading Completed");
+        System.out.println("Begin generating and logging events");
 
     }
 
     /* analysis engine */
     public void analysisEngine() {
+        /* Printing current progress */
+        System.out.println("Event Generation Completed");
+        System.out.println("Begin Analysing........");
+        
+        /* Measure baseline data */
+        
 
     }
 
