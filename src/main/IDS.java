@@ -13,9 +13,9 @@ public class IDS {
     /* Events File Storage */
     static List<String> eventList = new ArrayList<>();
     static List<String> cdEventList = new ArrayList<>();
-    static List<String> minimumList = new ArrayList<>();
-    static List<String> maximumList = new ArrayList<>();
-    static List<String> weightList = new ArrayList<>();
+    static List<Integer> minimumList = new ArrayList<>();
+    static List<Integer> maximumList = new ArrayList<>();
+    static List<Integer> weightList = new ArrayList<>();
 
     /* Stats File Storage */
     static List<String> statsEventList = new ArrayList<>();
@@ -47,8 +47,8 @@ public class IDS {
     }
 
     /* SUB METHODS */
-    public static void printList(List<String> list) {
-        for (String s : list) {
+    public static <T> void printList(List<T> V) {
+        for (T s : V) {
             System.out.println(s);
         }
     }
@@ -72,9 +72,15 @@ public class IDS {
                 String[] eventLine = eventText.split(":");
                 eventList.add(eventLine[0]);
                 cdEventList.add(eventLine[1]);
-                minimumList.add(eventLine[2]);
-                maximumList.add(eventLine[3]);
-                weightList.add(eventLine[4]);
+                minimumList.add(Integer.parseInt(eventLine[2]));
+                int maximum = 0;
+                try {
+                    maximum = Integer.parseInt(eventLine[3]);
+                } catch (NumberFormatException ex) {
+                    maximum = 0;
+                }
+                maximumList.add(maximum);
+                weightList.add(Integer.parseInt(eventLine[4]));
 
             }
 
@@ -84,6 +90,7 @@ public class IDS {
         printList(eventList);
         printList(cdEventList);
         printList(minimumList);
+        System.out.println("Printing maximum");
         printList(maximumList);
         printList(weightList);
     }
