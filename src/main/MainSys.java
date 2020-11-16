@@ -7,7 +7,7 @@ public class MainSys
     public static void main(String[] args) 
     {
         // Create new IDS object
-        IDS ids = new IDS();
+        Input ids = new Input();
 
         // check for the right number of args length
         if (args.length == 4) 

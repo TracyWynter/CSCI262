@@ -5,6 +5,6 @@ Ensure that Events.txt and Stats.txt are in the same directory
 before running the program.
 
 To Compile run the command:
-Javac *.java
+javac *.java
 java IDS Events.txt Stats.txt 10
 
