@@ -61,9 +61,9 @@ public class IDS {
         }
     }
 
-    public static void readEventFile(String file) {
-//        String eventFile = file; // command line
-        String eventFile = "src/main/" + file; // netbeans
+    public void readEventFile(String eventFile) {
+
+        System.out.println(eventFile);
 
         try {
             //Scanner sct = new Scanner (myFile);
@@ -103,9 +103,7 @@ public class IDS {
         printList(weightList);
     }
 
-    public static void readStatFile(String file) {
-        String statsFile = "src/main/" + file;  // netbeans
-//        String statsFile = file; // command line
+    public static void readStatFile(String statsFile) {
         try {
             //Reading the first line of the file
             int n = 0;
