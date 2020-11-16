@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package main;
 
-/**
- *
- * @author yanyi
- */
 public class SimulateEngine {
     // activity engine and the logs 
 
@@ -22,12 +13,12 @@ public class SimulateEngine {
         logEvents();
     }
 
-    public void generateEvents() {
+    private void generateEvents() {
         // Stats: [Event Name:Mean:SD]
 
     }
 
-    public void logEvents() {
+    private void logEvents() {
         // Save into 1 file
     }
 }

@@ -1,5 +1,5 @@
 // Package
-//package main;
+package main;
 
 // Import Libraries
 // For Variables
@@ -7,6 +7,8 @@ import java.util.Arrays;  // Arrays
 import java.util.ArrayList; // ArrayList
 
 // Read from file
+import main.stats;
+import main.events;
 import java.io.File;
 import java.io.IOException; // IO Exception
 import java.util.Scanner;   // To use Scanner class to read in data from files
@@ -27,7 +29,6 @@ public class Input {
     //ArrayList<Double> sdList = new ArrayList<>();
     ArrayList<stats> statList = new ArrayList<>();
 
-
     // ---------- MAIN METHODS -----------------
     // initial input 
     public void startInput(String eventsFile, String statsFile) {
@@ -39,103 +40,82 @@ public class Input {
 
     // -------------- SUB METHODS --------------
     // Method reads in information from Events.txt file
-    public void readEventFile(String eventFile) 
-    {
-        try 
-        {
+    public void readEventFile(String eventFile) {
+        try {
             File fileObj = new File(eventFile); // Create new File opbject
             Scanner sct = new Scanner(fileObj); // Create new Scanner object
 
             String numberOfEvents = sct.nextLine(); //Reading the first line of the file
             int eventCount = Integer.valueOf(numberOfEvents); // Convert to Integer
-			if(eventCount>0){
-				int n = 0; // Counter to check number or records
-				while (sct.hasNextLine()) 
-				{
-					String eventText = sct.nextLine(); // Takes in next line
-					String[] eventLine = eventText.split(":"); // Delimit 
+            if (eventCount > 0) {
+                int n = 0; // Counter to check number or records
+                while (sct.hasNextLine()) {
+                    String eventText = sct.nextLine(); // Takes in next line
+                    String[] eventLine = eventText.split(":"); // Delimit 
 
-					// Add to ArrayLists
-					String eventName = (eventLine[0]);    // Stores event name
-					char eventType = (eventLine[1]).charAt(0);  // Stores event type
-					double minimum = 0.0; // Stores minimum value
-					double maximum = 0.0; // Stores maximum value
-					Integer weight = 0;  // Stores Weight
+                    // Add to ArrayLists
+                    String eventName = (eventLine[0]);    // Stores event name
+                    char eventType = (eventLine[1]).charAt(0);  // Stores event type
+                    double minimum = 0.0; // Stores minimum value
+                    double maximum = 0.0; // Stores maximum value
+                    Integer weight = 0;  // Stores Weight
 
-					if (eventLine[1].equals("D")) 
-					{ // Discrete events
-						int min = 0;
-						try
-						{ 
-							min = Integer.parseInt(eventLine[2]); // Check if can parse as integer
-							minimum = (Double.valueOf(eventLine[2]));// Stores minimum value
-						} 
-						catch (NumberFormatException e) 
-						{
-							System.out.println("Error! Minimum value is not an integer");
-							System.exit(0);
-						}
-						
-						int max = 0;
-						try 
-						{ //Test for blank spacing
-							max = Integer.valueOf(eventLine[3]);
-							maximum = Double.valueOf(eventLine[3]);
-						} 
-						catch (NumberFormatException ex) 
-						{
-							max = 0;
-							maximum = 0.0;
-						}
+                    if (eventLine[1].equals("D")) { // Discrete events
+                        int min = 0;
+                        try {
+                            min = Integer.parseInt(eventLine[2]); // Check if can parse as integer
+                            minimum = (Double.valueOf(eventLine[2]));// Stores minimum value
+                        } catch (NumberFormatException e) {
+                            System.out.println("Error! Minimum value is not an integer");
+                            System.exit(0);
+                        }
 
-						if (min > max) 
-						{
-							System.out.println("Error! Minimum value cannot be larger than Maximum value");
-							System.exit(0);
-						}
-					} 
-					else if (eventLine[1].equals("C")) 
-					{// Continuous events
-						minimum = Double.valueOf(eventLine[2]); // Stores minimum value
-						try 
-						{ // Test for blank
-							maximum = Double.valueOf(eventLine[3]);
-						} 
-						catch (NumberFormatException ex) 
-						{
-							maximum = 0.0;
-						}
-					}
+                        int max = 0;
+                        try { //Test for blank spacing
+                            max = Integer.valueOf(eventLine[3]);
+                            maximum = Double.valueOf(eventLine[3]);
+                        } catch (NumberFormatException ex) {
+                            max = 0;
+                            maximum = 0.0;
+                        }
 
-					if (Integer.parseInt(eventLine[4]) > 0) 
-					{
-						weight = Integer.valueOf(eventLine[4]);
-					} 
-					else 
-					{
-						System.out.println("Error! Weight cannot be negative!");
-					}
-					n++;
-					eventList.add(new events(eventName, eventType, minimum, maximum, weight));
-				}
-				sct.close();
-				
-				if (n == eventCount) // [3] Check number of events against first digit in the file.
-				{// If it matches
-					System.out.println("Successfully read in " + eventFile + "!");
-				} else {// If it does not match
-					System.out.println("Failed to read in " + eventFile + "!");
-					System.out.println("Number of records specified does not match the number of records listed!");
-					System.out.println("Program will terminate!");
-					System.exit(0);
-				}
-				
-			}
-			else 
-			{
-				System.out.println("Error! Number of events cannot be negative!");
-				System.exit(0);
-			}
+                        if (min > max) {
+                            System.out.println("Error! Minimum value cannot be larger than Maximum value");
+                            System.exit(0);
+                        }
+                    } else if (eventLine[1].equals("C")) {// Continuous events
+                        minimum = Double.valueOf(eventLine[2]); // Stores minimum value
+                        try { // Test for blank
+                            maximum = Double.valueOf(eventLine[3]);
+                        } catch (NumberFormatException ex) {
+                            maximum = 0.0;
+                        }
+                    }
+
+                    if (Integer.parseInt(eventLine[4]) > 0) {
+                        weight = Integer.valueOf(eventLine[4]);
+                    } else {
+                        System.out.println("Error! Weight cannot be negative!");
+                    }
+                    n++;
+                    eventList.add(new events(eventName, eventType, minimum, maximum, weight));
+                }
+                sct.close();
+
+                if (n == eventCount) // [3] Check number of events against first digit in the file.
+                {// If it matches
+                    System.out.println("Successfully read in " + eventFile + "!");
+                } else {// If it does not match
+                    System.out.println("Failed to read in " + eventFile + "!");
+                    System.out.println("Number of records specified does not match the number of records listed!");
+                    System.out.println("Program will terminate!");
+                    System.exit(0);
+                }
+
+            } else {
+                System.out.println("Error! Number of events cannot be negative!");
+                System.exit(0);
+            }
 
         } catch (IOException e) {
             System.err.println(e);
@@ -150,10 +130,8 @@ public class Input {
         }*/
     }
 
-    public void readStatFile(String statsFile) 
-    {
-        try 
-        {
+    public void readStatFile(String statsFile) {
+        try {
             File fileObj = new File(statsFile); // Create new File opbject
             Scanner sct = new Scanner(fileObj); // Create new Scanner object
 
@@ -161,8 +139,7 @@ public class Input {
             int eventCount = Integer.valueOf(numberOfEvents); // Convert to Integer
 
             int n = 0; // Counter to check number or records
-            while (sct.hasNextLine()) 
-            {
+            while (sct.hasNextLine()) {
                 String eventText = sct.nextLine(); // Takes in next line
                 String[] statsLine = eventText.split(":"); // Delimit 
 
@@ -177,17 +154,13 @@ public class Input {
             if (n == eventCount) // [3] Check number of events against first digit in the file.
             {// If it matches
                 System.out.println("Successfully read in " + statsFile + "!");
-            } 
-            else 
-            {// If it does not match
+            } else {// If it does not match
                 System.out.println("Failed to read in " + statsFile + "!");
                 System.out.println("Number of records specified does not match the number of records listed!");
                 System.out.println("Program will terminate!");
                 System.exit(0);
             }
-        }
-        catch (IOException e) 
-        {
+        } catch (IOException e) {
             System.err.println(e);
             System.exit(0);
         }
