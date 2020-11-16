@@ -11,16 +11,16 @@ import java.nio.file.Paths;
 public class IDS {
 
     /* Events File Storage */
-    static List<String> eventList = new ArrayList<>();
-    static List<String> cdEventList = new ArrayList<>();
-    static List<Integer> minimumList = new ArrayList<>();
-    static List<Integer> maximumList = new ArrayList<>();
-    static List<Integer> weightList = new ArrayList<>();
+    ArrayList<String> eventList = new ArrayList<>();
+    ArrayList<String> cdEventList = new ArrayList<>();
+    ArrayList<Integer> minimumList = new ArrayList<>();
+    ArrayList<Integer> maximumList = new ArrayList<>();
+    ArrayList<Integer> weightList = new ArrayList<>();
 
     /* Stats File Storage */
-    static List<String> statsEventList = new ArrayList<>();
-    static List<Double> meanList = new ArrayList<>();
-    static List<String> sdList = new ArrayList<>();
+    ArrayList<String> statsEventList = new ArrayList<>();
+    ArrayList<Double> meanList = new ArrayList<>();
+    ArrayList<String> sdList = new ArrayList<>();
 
 
     /* MAIN METHODS */
@@ -40,7 +40,6 @@ public class IDS {
 
     }
 
-    
     /* analysis engine */
     public void analysisEngine() {
         /* Printing current progress */
@@ -104,7 +103,7 @@ public class IDS {
         printList(weightList);
     }
 
-    public static void readStatFile(String statsFile) {
+    public void readStatFile(String statsFile) {
         try {
             //Reading the first line of the file
             int n = 0;
@@ -150,7 +149,9 @@ public class IDS {
         // check 4th arg (must be integer)
         try {
             int num = Integer.parseInt(args[3]);
-            valid[3] = true;
+            if (num > 0) {
+                valid[3] = true;
+            }
         } catch (NumberFormatException ex) {
             valid[3] = false;
         }
