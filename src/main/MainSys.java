@@ -18,7 +18,7 @@ public class MainSys {
            
             
         } else {
-            System.out.println("Invalid number of arguments");
+            System.out.println("Invalid arguments or length");
         }
 
     }

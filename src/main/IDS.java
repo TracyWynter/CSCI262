@@ -36,7 +36,7 @@ public class IDS {
     public void simulateEngine() {
         /* Printing current progress */
         System.out.println("File Reading Completed");
-        System.out.println("Begin generating and logging events");
+        System.out.println("Begin generating and logging ....");
 
     }
 
@@ -45,10 +45,8 @@ public class IDS {
         /* Printing current progress */
         System.out.println("Event Generation Completed");
         System.out.println("Begin Analysing........");
-        
-        /* Measure baseline data */
-        
 
+        /* Measure baseline data */
     }
 
     /* alert engine */
@@ -151,7 +149,12 @@ public class IDS {
         }
 
         // check 4th arg (must be integer)
-        valid[3] = false;
+        try {
+            int num = Integer.parseInt(args[3]);
+            valid[3] = true;
+        } catch (NumberFormatException ex) {
+            valid[3] = false;
+        }
 
         if (!Arrays.asList(valid).contains(false)) {
             return true;
