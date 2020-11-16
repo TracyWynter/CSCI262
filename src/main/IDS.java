@@ -1,165 +1,218 @@
+// Package
 package main;
 
-import java.util.Arrays;
+// Import Libraries
+
+// For Variables
+import java.util.Arrays;  // Arrays
+import java.util.ArrayList; // ArrayList
+
+// Read from file
 import java.io.File;
-import java.nio.file.Files;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.nio.file.Paths;
+import java.io.IOException; // IO Exception
+import java.util.Scanner;   // To use Scanner class to read in data from files
 
-public class IDS {
+public class IDS 
+{
+    // To store data from Events.txt
+    ArrayList<String> eventList    = new ArrayList<>();
+    ArrayList<String> cdEventList  = new ArrayList<>();
+    ArrayList<Integer> minimumList = new ArrayList<>();
+    ArrayList<Integer> maximumList = new ArrayList<>();
+    ArrayList<Integer> weightList  = new ArrayList<>();
 
-    /* Events File Storage */
-    static List<String> eventList = new ArrayList<>();
-    static List<String> cdEventList = new ArrayList<>();
-    static List<Integer> minimumList = new ArrayList<>();
-    static List<Integer> maximumList = new ArrayList<>();
-    static List<Integer> weightList = new ArrayList<>();
+    // To store date from Stats.txt
+    ArrayList<String> statsEventList = new ArrayList<>();
+    ArrayList<Double> meanList       = new ArrayList<>();
+    ArrayList<Double> sdList         = new ArrayList<>();
 
-    /* Stats File Storage */
-    static List<String> statsEventList = new ArrayList<>();
-    static List<Double> meanList = new ArrayList<>();
-    static List<String> sdList = new ArrayList<>();
+    // MAIN METHODS 
 
-
-    /* MAIN METHODS */
-
- /* initial input */
-    public void startInput(String eventsFile, String statsFile) {
-        /* Read and Store File Information */
-        readStatFile(statsFile);
-        readEventFile(eventsFile);
+    // initial input 
+    public void startInput(String eventsFile, String statsFile) 
+    {
+        // Extract information from both files and store them 
+        readEventFile(eventsFile); // Read from Events.txt
+       readStatFile(statsFile);   // Read from Stats.txt
+        
     }
 
-    /* activity engine and the logs */
-    public void simulateEngine() {
-        /* Printing current progress */
+    // activity engine and the logs 
+    public void simulateEngine() 
+    {
+        // Printing current progress 
         System.out.println("File Reading Completed");
         System.out.println("Begin generating and logging ....");
 
     }
 
     
-    /* analysis engine */
-    public void analysisEngine() {
-        /* Printing current progress */
+    // analysis engine 
+    public void analysisEngine() 
+    {
+        // Printing current progress 
         System.out.println("Event Generation Completed");
         System.out.println("Begin Analysing........");
-
-        /* Measure baseline data */
+        // Measure baseline data 
     }
 
-    /* alert engine */
-    public void alertEngine() {
+    // alert engine 
+    public void alertEngine() 
+    {
 
     }
 
-    /* SUB METHODS */
-    public static <T> void printList(List<T> V) {
-        for (T s : V) {
-            System.out.println(s);
-        }
-    }
+    // Method reads in information from Events.txt file
+    public void readEventFile(String eventFile) 
+    {
+        try 
+        {
+            File fileObj = new File(eventFile); // Create new File opbject
+            Scanner sct = new Scanner (fileObj); // Create new Scanner object
+          
+            String numberOfEvents = sct.nextLine(); //Reading the first line of the file
+            int eventCount = Integer.valueOf(numberOfEvents); // Convert to Integer
+            
+            int n = 0; // Counter to check number or records
+            while (sct.hasNextLine()) 
+            {
+                String eventText = sct.nextLine(); // Takes in next line
+                String[] eventLine = eventText.split(":"); // Delimit 
+                
+                // Add to ArrayLists
+                eventList.add(eventLine[0]);    // Stores event name
+                cdEventList.add(eventLine[1]);  // Stores event type
+                minimumList.add(Integer.valueOf(eventLine[2])); // Stores minimum value
 
-    public void readEventFile(String eventFile) {
-
-        System.out.println(eventFile);
-
-        try {
-            //Scanner sct = new Scanner (myFile);
-
-            //Reading the first line of the file
-            int n = 0;
-            String numberOfEvents = Files.readAllLines(Paths.get(eventFile)).get(n);
-            //Printing the first line 
-            //System.out.println(numberOfEvents);
-            int eventCount = Integer.parseInt(numberOfEvents);
-
-            while (n < eventCount) {
-                String eventText = Files.readAllLines(Paths.get(eventFile)).get(++n);
-                String[] eventLine = eventText.split(":");
-                eventList.add(eventLine[0]);
-                cdEventList.add(eventLine[1]);
-                minimumList.add(Integer.parseInt(eventLine[2]));
                 int maximum;
-                try {
+                try // Test for blank spacing
+                {
                     maximum = Integer.parseInt(eventLine[3]);
-                } catch (NumberFormatException ex) {
+                } 
+                catch (NumberFormatException ex) 
+                {
                     maximum = 0;
                 }
-                maximumList.add(maximum);
-                weightList.add(Integer.parseInt(eventLine[4]));
-
+                maximumList.add(maximum); // Stores maximum value
+                weightList.add(Integer.valueOf(eventLine[4])); // Stores the Event's weight
+                n++;
             }
-
-        } catch (IOException e) {
+            sct.close();
+            if (n == eventCount) // [3] Check number of events against first digit in the file.
+            {// If it matches
+                System.out.println("Successfully read in " + eventFile + "!");
+            }
+            else
+            {// If it does not match
+                System.out.println("Failed to read in " + eventFile + "!");
+                System.out.println("Number of records specified does not match the number of records listed!");
+                System.out.println("Program will terminate!");
+                System.exit(0);
+            }
+        } 
+        catch (IOException e) 
+        {
             System.err.println(e);
+            System.exit(0);
         }
-        printList(eventList);
-        printList(cdEventList);
-        printList(minimumList);
-        System.out.println("Printing maximum");
-        printList(maximumList);
-        printList(weightList);
+
+        // Debug code
+        //System.out.println(eventList);
+        //System.out.println(cdEventList);
+        //System.out.println(minimumList);
+        //System.out.println(maximumList);
+        //System.out.println(weightList);
+    }
+    
+    
+    public void readStatFile(String statsFile) 
+    {
+        try 
+        {
+            File fileObj = new File(statsFile); // Create new File opbject
+            Scanner sct = new Scanner (fileObj); // Create new Scanner object
+
+            String numberOfEvents = sct.nextLine(); //Reading the first line of the file
+            int eventCount = Integer.valueOf(numberOfEvents); // Convert to Integer
+          
+            int n = 0; // Counter to check number or records
+            while (sct.hasNextLine()) 
+            {
+                String eventText = sct.nextLine(); // Takes in next line
+                String[] statsLine = eventText.split(":"); // Delimit 
+
+                statsEventList.add(statsLine[0]); // Stores Event name
+                meanList.add(Double.valueOf(statsLine[1])); // Stores Mean value
+                sdList.add(Double.valueOf(statsLine[2])); // Stores Standard Deviation
+                n++;
+            }
+            sct.close();
+
+            if (n == eventCount) // [3] Check number of events against first digit in the file.
+            {// If it matches
+                System.out.println("Successfully read in " + statsFile + "!");
+            }
+            else
+            {// If it does not match
+                System.out.println("Failed to read in " + statsFile + "!");
+                System.out.println("Number of records specified does not match the number of records listed!");
+                System.out.println("Program will terminate!");
+                System.exit(0);
+            }
+        } 
+        catch (IOException e) 
+        {
+            System.err.println(e);
+            System.exit(0);
+        }
+
+        // Debug Code
+        //System.out.println(statsEventList);
+        //System.out.println(meanList);
+        //System.out.println(sdList);
     }
 
-    public static void readStatFile(String statsFile) {
-        try {
-            //Reading the first line of the file
-            int n = 0;
-            String numberOfEvents = Files.readAllLines(Paths.get(statsFile)).get(n);
-            //Printing the first line 
-            //System.out.println(numberOfEvents);
-            int eventCount = Integer.parseInt(numberOfEvents);
-
-            while (n < eventCount) {
-                String statsText = Files.readAllLines(Paths.get(statsFile)).get(++n);
-                String[] statsLine = statsText.split(":");
-                statsEventList.add(statsLine[0]);
-                meanList.add(Double.parseDouble(statsLine[1]));
-                sdList.add(statsLine[2]);
-
-            }
-
-        } catch (IOException e) {
-            System.err.println(e);
-        }
-        printList(statsEventList);
-
-    }
-
-    public boolean validateInput(String[] args) {
+    public boolean validateInput(String[] args) 
+    {
         boolean[] valid = new boolean[4];
         Arrays.fill(valid, false);
+
         // check 1st arg
-        if (args[0].equals("IDS")) {
+        if (args[0].equals("IDS")) 
+        {
             valid[0] = true;
         }
 
         // check 2nd arg
-        if (args[1].equals("Events.txt")) {
+        if (args[1].equals("Events.txt")) 
+        {
             valid[1] = true;
         }
 
         // check 3rd arg
-        if (args[2].equals("Stats.txt")) {
+        if (args[2].equals("Stats.txt")) 
+        {
             valid[2] = true;
         }
 
         // check 4th arg (must be integer)
-        try {
+        try 
+        {
             int num = Integer.parseInt(args[3]);
             valid[3] = true;
-        } catch (NumberFormatException ex) {
+        } 
+        catch (NumberFormatException ex) 
+        {
             valid[3] = false;
         }
 
-        if (!Arrays.asList(valid).contains(false)) {
+        if (!Arrays.asList(valid).contains(false)) 
+        {
             return true;
         }
-
-        return false;
+        else
+        {
+            return false;
+        }
     }
-
 }
