@@ -13,6 +13,17 @@ public class AlertEngine {
     // alert engine 
 
     public void alertEngine() {
+        // Prompt user for file
+        
+        // Prompt user for number of days
+        
+        // Read and store data
+        
+        // Run activity engine
+        
+        // Run analysis engine
+        
+        
 
     }
 }
