@@ -17,6 +17,7 @@ public class IDS
         // Custom File Objects
         ArrayList<events> eventList = new ArrayList<>();
         ArrayList<stats> statList = new ArrayList<>();
+		ArrayList<stats> newStatList = new ArrayList<>();
         
         System.out.println("Verifying Integerity of Event.txt and Stats.txt...");
 
@@ -36,7 +37,8 @@ public class IDS
                 ipt.startInput(args[1], args[2], eventList, statList); // initial input
  
                 sim.simulateEngine(days, statList, eventList); // simulate engine
-                //analysis.analysisEngine();  
+                //analysis.analysisEngine(); 
+				alert.alertEngine(newStatList); //alertEngine
 
             } else {System.out.println("Invalid arguments");}   
         } else {System.out.println("Invalid arguments or length");}
