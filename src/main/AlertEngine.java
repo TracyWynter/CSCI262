@@ -95,28 +95,34 @@ public class AlertEngine
 
             String numberOfEvents = sct.nextLine(); //Reading the first line of the file
             int eventCount = Integer.valueOf(numberOfEvents); // Convert to Integer
+			if(eventCount>0){
+				int n = 0; // Counter to check number or records
+				while (sct.hasNextLine()) {
+					String eventText = sct.nextLine(); // Takes in next line
+					String[] statsLine = eventText.split(":"); // Delimit 
 
-            int n = 0; // Counter to check number or records
-            while (sct.hasNextLine()) {
-                String eventText = sct.nextLine(); // Takes in next line
-                String[] statsLine = eventText.split(":"); // Delimit 
+					String eventName = statsLine[0]; // Stores Event name
+					double mean = Double.valueOf(statsLine[1]); // Stores Mean value
+					double sd = Double.valueOf(statsLine[2]); // Stores Standard Deviation
+					n++;
+					//Storing the data for processing at the next step
+					newStatList.add(new stats(eventName, mean, sd));
+				}
+				sct.close();
 
-                String eventName = statsLine[0]; // Stores Event name
-                double mean = Double.valueOf(statsLine[1]); // Stores Mean value
-                double sd = Double.valueOf(statsLine[2]); // Stores Standard Deviation
-                n++;
-                //Storing the data for processing at the next step
-                newStatList.add(new stats(eventName, mean, sd));
-            }
-            sct.close();
-
-            if (n == eventCount) // [3] Check number of events against first digit in the file.
-            {// If it matches
-                System.out.println("Successfully read in " + newStatsFile + "!");
-            } else {// If it does not match
-                System.out.println("Failed to read in " + newStatsFile + "!");
-                System.out.println("Number of records specified does not match the number of records listed!");
-                System.out.println("Program will terminate!");
+				if (n == eventCount) // [3] Check number of events against first digit in the file.
+				{// If it matches
+					System.out.println("Successfully read in " + newStatsFile + "!");
+				} else {// If it does not match
+					System.out.println("Failed to read in " + newStatsFile + "!");
+					System.out.println("Number of records specified does not match the number of records listed!");
+					System.out.println("Program will terminate!");
+					System.exit(0);
+				}
+			} 
+            else 
+            {
+                System.out.println("Error! Number of events cannot be negative!");
                 System.exit(0);
             }
         } catch (IOException e) {
@@ -124,8 +130,8 @@ public class AlertEngine
             System.exit(0);
         }
 
-	// Debug Code
-	//Printing data of newStatList
+		// Debug Code
+		//Printing data of newStatList
         // Displaying contents of data read in to user
         System.out.println("Contents of " + newStatsFile + " read in:");
         String temp = String.format("%-15s", "Event name") + ":";
