@@ -13,9 +13,8 @@ import java.io.File;
 import java.io.IOException; // IO Exception
 import java.util.Scanner;   // To use Scanner class to read in data from files
 
-public class Input {
-
-
+public class Input 
+{
     // ---------- MAIN METHODS -----------------
     // initial input 
     public void startInput(String eventsFile, String statsFile, ArrayList<events> eventList, ArrayList<stats> statList) 
@@ -23,13 +22,14 @@ public class Input {
         // Extract information from both files and store them 
         readEventFile(eventsFile, eventList); // Read from Events.txt
         readStatFile(statsFile, statList);    // Read from Stats.txt
-
+        validateData(eventList, statList);    // validate that data in both ArrayList are consistent
     }
 
     // -------------- SUB METHODS --------------
     // Method reads in information from Events.txt file
     public void readEventFile(String eventFile, ArrayList<events> eventList) 
     {
+        System.out.println("\nReading the " + eventFile + " ...");
         try 
         {
             File fileObj = new File(eventFile); // Create new File opbject
@@ -56,7 +56,7 @@ public class Input {
                     { // Discrete events
                         int min = 0;
                         try 
-                        {
+                        {// Check that discrete events [D] values are all itegers - events.txt 
                             min = Integer.parseInt(eventLine[2]);    // Check if can parse as integer
                             minimum = (Double.valueOf(eventLine[2]));// Stores minimum value
                         } 
@@ -78,7 +78,7 @@ public class Input {
                             maximum = 0.0;
                         }
 
-                        if (min > max) 
+                        if (min > max) // Minimum needs to be smaller than maximum
                         {
                             System.out.println("Error! Minimum value cannot be larger than Maximum value");
                             System.exit(0);
@@ -98,6 +98,7 @@ public class Input {
                         System.exit(0);
                     }
                     n++;
+                    // Store the data for processing at next step
                     eventList.add(new events(eventName, eventType, minimum, maximum, weight));
                 }
                 sct.close();
@@ -119,11 +120,23 @@ public class Input {
             }
 
         } 
-        catch (IOException e) {System.err.println(e); System.exit(0);}    
+        catch (IOException e) {System.err.println(e); System.exit(0);}   
+        
+        // Displaying contents of data read in to user
+        System.out.println("Contents of " + eventFile + " read in:");
+        String temp = String.format("%-15s", "Event name") + ":";
+        temp = temp + String.format("%-4s", "[CD]") + ":";
+        temp = temp + String.format("%-7s", "minimum") + ":";
+        temp = temp + String.format("%-7s", "maximum") + ":";
+        temp = temp + String.format("%-6s", "weight") + ":";
+        System.out.println(temp);
+        for (events e : eventList) {System.out.println(e);}
     }
 
+    // Method reads in information from Stats.txt file
     public void readStatFile(String statsFile, ArrayList<stats> statList) 
     {
+        System.out.println("\nReading the " + statsFile + " ...");
         try 
         {
             File fileObj = new File(statsFile); // Create new File opbject
@@ -133,7 +146,8 @@ public class Input {
             int eventCount = Integer.valueOf(numberOfEvents); // Convert to Integer
 
             int n = 0; // Counter to check number or records
-            while (sct.hasNextLine()) {
+            while (sct.hasNextLine()) 
+            {
                 String eventText = sct.nextLine();          // Takes in next line
                 String[] statsLine = eventText.split(":");  // Delimit 
 
@@ -141,6 +155,7 @@ public class Input {
                 double mean = Double.valueOf(statsLine[1]); // Stores Mean value
                 double sd = Double.valueOf(statsLine[2]);   // Stores Standard Deviation
                 n++;
+                // Store the data for processing at next step
                 statList.add(new stats(eventName, mean, sd));
             }
             sct.close();
@@ -155,7 +170,15 @@ public class Input {
                 System.exit(0);
             }
         } 
-        catch (IOException e) {System.err.println(e); System.exit(0);}    
+        catch (IOException e) {System.err.println(e); System.exit(0);} 
+        
+        // Displaying contents of data read in to user
+        System.out.println("Contents of " + statsFile + " read in:");
+        String temp = String.format("%-15s", "Event name") + ":";
+        temp = temp + String.format("%-7s", "mean") + ":";
+        temp = temp + String.format("%-18s", "standard deviation") + ":";
+        System.out.println(temp);
+        for (stats s : statList) {System.out.println(s);}
     }
 
     // Validate all parameters supplied in as arguments when running the IDS program
@@ -178,4 +201,11 @@ public class Input {
         if (!Arrays.asList(valid).contains(false)) {return true;}
         else {return false;}
     }
+
+    public void validateData(ArrayList<events> eventList, ArrayList<stats> statList) 
+    {
+        // Check number of records in events.txt and stats.txt are the same
+        // Event names in both files are the same and in the same order.
+    }
+
 }

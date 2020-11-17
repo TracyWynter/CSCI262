@@ -87,7 +87,13 @@ public class events
     // Display Method
     @Override
     public String toString() 
-    { 
-        return String.format(eventName + ":" + eventType + ":" + minimum + ":" + maximum + ":" + weight); 
+    {        
+        String temp = String.format("%-15s", eventName) + ":";
+        temp = temp + String.format("%-4s", eventType) + ":";
+        temp = temp + String.format("%-7s", minimum) + ":";
+        temp = temp + String.format("%-7s", maximum) + ":";
+        temp = temp + String.format("%-6s", weight) + ":";
+        return temp;
+        //return String.format(eventName + ":" + eventType + ":" + minimum + ":" + maximum + ":" + weight); 
     }
 }

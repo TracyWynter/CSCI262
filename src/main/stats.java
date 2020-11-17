@@ -64,6 +64,10 @@ public class stats
     @Override
     public String toString() 
     { 
-        return String.format(eventName + ":" + mean + ":" + standardDeviation); 
+        String temp = String.format("%-15s", eventName) + ":";
+        temp = temp + String.format("%-7s", mean) + ":";
+        temp = temp + String.format("%-18s", standardDeviation) + ":";
+        return temp;
+        //return String.format(eventName + ":" + mean + ":" + standardDeviation); 
     }
 }

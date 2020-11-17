@@ -18,6 +18,8 @@ public class IDS
         ArrayList<events> eventList = new ArrayList<>();
         ArrayList<stats> statList = new ArrayList<>();
         
+        System.out.println("Verifying Integerity of Event.txt and Stats.txt...");
+
         // check for the right number of args length
         if (args.length == 4) 
         {
