@@ -15,32 +15,19 @@ import java.util.Scanner;   // To use Scanner class to read in data from files
 
 public class Input {
 
-    // To store data from Events.txt
-    //ArrayList<String> eventList = new ArrayList<>();
-    //ArrayList<String> cdEventList = new ArrayList<>();
-    //ArrayList<Integer> minimumList = new ArrayList<>();
-    //ArrayList<Integer> maximumList = new ArrayList<>();
-    //ArrayList<Integer> weightList = new ArrayList<>();
-    ArrayList<events> eventList = new ArrayList<>();
-
-    // To store date from Stats.txt
-    //ArrayList<String> statsEventList = new ArrayList<>();
-    //ArrayList<Double> meanList = new ArrayList<>();
-    //ArrayList<Double> sdList = new ArrayList<>();
-    ArrayList<stats> statList = new ArrayList<>();
 
     // ---------- MAIN METHODS -----------------
     // initial input 
-    public void startInput(String eventsFile, String statsFile) {
+    public void startInput(String eventsFile, String statsFile, ArrayList<events> eventList, ArrayList<stats> statList) {
         // Extract information from both files and store them 
-        readEventFile(eventsFile); // Read from Events.txt
-        readStatFile(statsFile);   // Read from Stats.txt
+        readEventFile(eventsFile, eventList); // Read from Events.txt
+        readStatFile(statsFile, statList);   // Read from Stats.txt
 
     }
 
     // -------------- SUB METHODS --------------
     // Method reads in information from Events.txt file
-    public void readEventFile(String eventFile) {
+    public void readEventFile(String eventFile, ArrayList<events> eventList) {
         try {
             File fileObj = new File(eventFile); // Create new File opbject
             Scanner sct = new Scanner(fileObj); // Create new Scanner object
@@ -130,7 +117,7 @@ public class Input {
         }*/
     }
 
-    public void readStatFile(String statsFile) {
+    public void readStatFile(String statsFile, ArrayList<stats> statList) {
         try {
             File fileObj = new File(statsFile); // Create new File opbject
             Scanner sct = new Scanner(fileObj); // Create new Scanner object
