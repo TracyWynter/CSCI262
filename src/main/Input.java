@@ -204,22 +204,37 @@ public class Input
 
     public void validateData(ArrayList<events> eventList, ArrayList<stats> statList) 
     {
-        System.out.println("Validating data which has been read in ...");
+        System.out.println("\nValidating data which has been read in ...");
         // Check number of records in events.txt and stats.txt are the same
         // In order to achieve this we will compare the size of both ArrayList.
         Integer eventListSize = eventList.size(); // Get size of eventList
         Integer statListSize = statList.size();   // Get size of statList
 
         // Check if they are equal
-        System.out.println("Checking dataset size in both files...");
+        System.out.println("\nChecking dataset size in both files...");
         if (eventListSize == statListSize)
-        {System.out.println("Size of Datasets in both files match");}
+        {System.out.println("Size of Datasets in both files match!");}
         else
         {
             System.out.println("Data sets in both Events.txt and Stats.txt are not the same size!");
             System.out.println("Ensure that both datasets are consistent!\nProgram Terminating!");
             System.exit(0);
         }
+
         // Event names in both files are the same and in the same order.
+        System.out.println("\nChecking consistency of dataset in both files...");
+        for (int i = 0; i < eventList.size(); i++)
+        {
+            String a = eventList.get(i).getEventName();
+            String b = statList.get(i).getEventName();
+            if (a.equals(b) == true) {} // Do nothing if it matches
+            else
+            {
+                System.out.println("Data sets in both Events.txt and Stats.txt are not the same and not in the same order!");
+                System.out.println("Ensure that both datasets are consistent!\nProgram Terminating!");
+                System.exit(0);
+            }
+        }
+        System.out.println("Datasets extracted from both files are consistent with each other!");
     }
 }
