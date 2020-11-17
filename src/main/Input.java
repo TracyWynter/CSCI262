@@ -62,8 +62,8 @@ public class Input
                         } 
                         catch (NumberFormatException e) 
                         {
-                            System.out.println("Error! Minimum value is not an integer");
-                            System.exit(0);
+                            min = 0;
+                            minimum = 0.0;
                         }
 
                         int max = 0;
@@ -78,7 +78,7 @@ public class Input
                             maximum = 0.0;
                         }
 
-                        if (min > max) // Minimum needs to be smaller than maximum
+                        if (max != 0  && min > max) // Minimum needs to be smaller than maximum
                         {
                             System.out.println("Error! Minimum value cannot be larger than Maximum value");
                             System.exit(0);
@@ -204,8 +204,22 @@ public class Input
 
     public void validateData(ArrayList<events> eventList, ArrayList<stats> statList) 
     {
+        System.out.println("Validating data which has been read in ...");
         // Check number of records in events.txt and stats.txt are the same
+        // In order to achieve this we will compare the size of both ArrayList.
+        Integer eventListSize = eventList.size(); // Get size of eventList
+        Integer statListSize = statList.size();   // Get size of statList
+
+        // Check if they are equal
+        System.out.println("Checking dataset size in both files...");
+        if (eventListSize == statListSize)
+        {System.out.println("Size of Datasets in both files match");}
+        else
+        {
+            System.out.println("Data sets in both Events.txt and Stats.txt are not the same size!");
+            System.out.println("Ensure that both datasets are consistent!\nProgram Terminating!");
+            System.exit(0);
+        }
         // Event names in both files are the same and in the same order.
     }
-
 }
