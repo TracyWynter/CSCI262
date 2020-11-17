@@ -1,6 +1,7 @@
-
+// Package
 package main;
 
+// Import Libraries
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,7 +11,8 @@ import java.util.Collections;
 import java.util.Scanner;   // To use Scanner class to read in data from files
 import main.stats;
 
-public class AlertEngine{
+public class AlertEngine
+ {
     // alert engine 
     //To check consitency between "live data" and the base line statistics
     
@@ -37,7 +39,7 @@ public class AlertEngine{
         
         // Prompt user for file that contains new statistics
         //Same format as Stats.txt but different parameters
-        System.out.println("Please enter the filename: ");
+        System.out.print("Please enter the filename: ");
         
         //Reading user input
         String newStatsFile = sct.nextLine();
@@ -54,7 +56,7 @@ public class AlertEngine{
         System.out.println();
         
         //Prompt user to enter number of days
-	System.out.println("\nPlease enter the number of days you would like to generate: ");
+	System.out.print("\nPlease enter the number of days you would like to generate: ");
         
         //Reading numOfDays input as String
         numOfDays = sct.nextLine();
@@ -66,8 +68,26 @@ public class AlertEngine{
     //Method to read in new statistics file
     public void readNewStatFile(ArrayList<stats> newStatList) 
     {
-        //Calling getUserInputNewStatFile to get the file that contains new statistics
-        String newStatsFile = getUserInputNewStatFile();
+        String newStatsFile = "";
+        boolean fileExists = false;
+        while(fileExists == false) // Validate that new Stats file name exists
+        {
+            //Calling getUserInputNewStatFile to get the file that contains new statistics
+            newStatsFile = getUserInputNewStatFile();
+            
+            System.out.println("Checking if files exists...");
+            File tempFile = new File(newStatsFile);
+            fileExists = tempFile.exists();
+            if (fileExists == true)
+            {
+                System.out.println("File exists! Proceesing to read file...\n");
+            }
+            else
+            {
+                System.out.println("File does not exist! Please key in another file name!\n");
+            }
+        }
+        
 	try 
 	{
             //int noOfDays = getUserInputNumOfDays();
@@ -126,7 +146,7 @@ public class AlertEngine{
     } 
     public String getUserOptions()
     {
-        System.out.println("\nWould you like to run the Alert Engine (Y or N): ");
+        System.out.print("\nWould you like to run the Alert Engine (Y or N): ");
         Scanner sct = new Scanner(System.in); // Create new Scanner object
         String optionsToContinue = sct.nextLine(); // Takes in next line
         String userOption = optionsToContinue.toUpperCase(); 
