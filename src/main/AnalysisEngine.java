@@ -85,7 +85,6 @@ public class AnalysisEngine {
             int count = 0;
 
             for (logs l : logList) {
-                System.out.println("Yes");
                 val += l.getValue();
                 count++;
                 if (count == eventCount) {
