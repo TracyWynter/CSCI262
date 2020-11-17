@@ -25,6 +25,9 @@ public class AlertEngine{
     //ArrayList<stats> statList = new ArrayList<>();
     ArrayList<stats> newStatList = new ArrayList<>();
     ArrayList<events> eventList = new ArrayList<>();
+
+    // Used to hold new list of generated logs based on new stat file
+    ArrayList<String> newLogList = new ArrayList<>(); 
     
     //Method for getting the new filename
     public String getUserInputNewStatFile()
@@ -141,8 +144,11 @@ public class AlertEngine{
 
             // Run activity engine and produce data for the number of days specified
             int noOfDays = getUserInputNumOfDays();
-            sim.simulateEngine(noOfDays, newStatList, eventList);
+            sim.generateEvents(noOfDays, newStatList, eventList, newLogList);
 
+            // Debug Code
+            //for (String s : newLogList)
+            //{System.out.println(s);}
             // Run analysis engine to produce daily totals
         }
         else if(optionsToContinue.equals("N"))

@@ -15,9 +15,9 @@ public class IDS
         AlertEngine alert = new AlertEngine();
 
         // Custom File Objects
-        ArrayList<events> eventList = new ArrayList<>();
-        ArrayList<stats> statList = new ArrayList<>();
-		ArrayList<stats> newStatList = new ArrayList<>();
+        ArrayList<events> eventList = new ArrayList<>();  // Used in input 
+        ArrayList<stats> statList = new ArrayList<>();    // Used in input
+        ArrayList<stats> newStatList = new ArrayList<>(); //Used in Alert Engine
         
         System.out.println("Verifying Integerity of Event.txt and Stats.txt...");
 
@@ -38,7 +38,7 @@ public class IDS
  
                 sim.simulateEngine(days, statList, eventList); // simulate engine
                 //analysis.analysisEngine(); 
-				alert.alertEngine(newStatList); //alertEngine
+                alert.alertEngine(newStatList, eventList); //alertEngine
 
             } else {System.out.println("Invalid arguments");}   
         } else {System.out.println("Invalid arguments or length");}

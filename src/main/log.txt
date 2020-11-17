@@ -1,70 +1,70 @@
 #Day1
 5
 Logins:3:
-Time online:156.73:
-Emails sent:6:
-Emails opened:11:
-Emails deleted:5:
+Time online:172.94:
+Emails sent:5:
+Emails opened:9:
+Emails deleted:10:
 #Day2
 5
-Logins:5:
-Time online:122:
-Emails sent:14:
-Emails opened:15:
-Emails deleted:10:
+Logins:7:
+Time online:164.01:
+Emails sent:7:
+Emails opened:16:
+Emails deleted:2:
 #Day3
 5
-Logins:4:
-Time online:118.62:
+Logins:1:
+Time online:104.95:
 Emails sent:12:
-Emails opened:5:
-Emails deleted:11:
+Emails opened:10:
+Emails deleted:6:
 #Day4
 5
-Logins:2:
-Time online:189.49:
-Emails sent:8:
-Emails opened:9:
-Emails deleted:5:
+Logins:1:
+Time online:178.86:
+Emails sent:7:
+Emails opened:10:
+Emails deleted:6:
 #Day5
 5
-Logins:4:
-Time online:156.09:
-Emails sent:13:
-Emails opened:12:
+Logins:7:
+Time online:173.86:
+Emails sent:11:
+Emails opened:3:
 Emails deleted:5:
 #Day6
 5
-Logins:5:
-Time online:196.41:
-Emails sent:13:
-Emails opened:8:
-Emails deleted:7:
+Logins:7:
+Time online:126.59:
+Emails sent:9:
+Emails opened:10:
+Emails deleted:8:
 #Day7
 5
 Logins:4:
-Time online:196.89:
-Emails sent:7:
-Emails opened:20:
-Emails deleted:8:
+Time online:116.16:
+Emails sent:9:
+Emails opened:19:
+Emails deleted:7:
 #Day8
 5
-Logins:6:
-Time online:149.5:
-Emails sent:12:
-Emails opened:16:
-Emails deleted:3:
+Logins:2:
+Time online:129.42:
+Emails sent:16:
+Emails opened:4:
+Emails deleted:10:
 #Day9
 5
 Logins:5:
-Time online:143.88:
-Emails sent:12:
-Emails opened:10:
-Emails deleted:5:
+Time online:147.43:
+Emails sent:6:
+Emails opened:9:
+Emails deleted:6:
 #Day10
 5
-Logins:3:
-Time online:119.85:
-Emails sent:16:
-Emails opened:21:
-Emails deleted:10:
+Logins:6:
+Time online:101.71:
+Emails sent:11:
+Emails opened:16:
+Emails deleted:3:
