@@ -59,6 +59,7 @@ public class Input
                         {// Check that discrete events [D] values are all itegers - events.txt 
                             min = Integer.parseInt(eventLine[2]);    // Check if can parse as integer
                             minimum = (Double.valueOf(eventLine[2]));// Stores minimum value
+                            checkNegative(minimum);
                         } 
                         catch (NumberFormatException e) 
                         {
@@ -71,6 +72,7 @@ public class Input
                         { //Test for blank spacing
                             max = Integer.valueOf(eventLine[3]);
                             maximum = Double.valueOf(eventLine[3]);
+                            checkNegative(maximum);
                         } 
                         catch (NumberFormatException ex) 
                         {
@@ -87,11 +89,20 @@ public class Input
                     else if (eventLine[1].equals("C")) 
                     {// Continuous events
                         minimum = Double.valueOf(eventLine[2]);           // Stores minimum value
-                        try {maximum = Double.valueOf(eventLine[3]);}     // Test for blank  
+                        checkNegative(minimum);
+                        try 
+                        {// Test for blank  
+                            maximum = Double.valueOf(eventLine[3]);
+                            checkNegative(maximum);
+                        }     
                         catch (NumberFormatException ex) {maximum = 0.0;}
                     }
-
-                    if (Integer.parseInt(eventLine[4]) > 0) {weight = Integer.valueOf(eventLine[4]);}
+                    
+                    if (Integer.parseInt(eventLine[4]) > 0) 
+                    {
+                        weight = Integer.valueOf(eventLine[4]);
+                        checkNegative(Double.valueOf(weight));
+                    }
                     else 
                     {
                         System.out.println("Error! Weight cannot be negative!");
@@ -133,6 +144,19 @@ public class Input
         for (events e : eventList) {System.out.println(e);}
     }
 
+    // Checks for negative values being supplied in.
+    public void checkNegative(Double test)
+    {
+        if (test < 0)
+        {
+            System.out.println("Number is Negative!");
+            System.out.println("Please ensure that values in Events.txt and Stats.txt are positive only!");
+            System.out.println("Program will terminate!");
+            System.exit(0);
+        }
+        else {} //Nothing happends
+    }
+
     // Method reads in information from Stats.txt file
     public void readStatFile(String statsFile, ArrayList<stats> statList) 
     {
@@ -153,7 +177,9 @@ public class Input
 
                 String eventName = statsLine[0];            // Stores Event name
                 double mean = Double.valueOf(statsLine[1]); // Stores Mean value
+                checkNegative(mean);
                 double sd = Double.valueOf(statsLine[2]);   // Stores Standard Deviation
+                checkNegative(sd);
                 n++;
                 // Store the data for processing at next step
                 statList.add(new stats(eventName, mean, sd));
@@ -204,22 +230,37 @@ public class Input
 
     public void validateData(ArrayList<events> eventList, ArrayList<stats> statList) 
     {
-        System.out.println("Validating data which has been read in ...");
+        System.out.println("\nValidating data which has been read in ...");
         // Check number of records in events.txt and stats.txt are the same
         // In order to achieve this we will compare the size of both ArrayList.
         Integer eventListSize = eventList.size(); // Get size of eventList
         Integer statListSize = statList.size();   // Get size of statList
 
         // Check if they are equal
-        System.out.println("Checking dataset size in both files...");
+        System.out.println("\nChecking dataset size in both files...");
         if (eventListSize == statListSize)
-        {System.out.println("Size of Datasets in both files match");}
+        {System.out.println("Size of Datasets in both files match!");}
         else
         {
             System.out.println("Data sets in both Events.txt and Stats.txt are not the same size!");
             System.out.println("Ensure that both datasets are consistent!\nProgram Terminating!");
             System.exit(0);
         }
+
         // Event names in both files are the same and in the same order.
+        System.out.println("\nChecking consistency of dataset in both files...");
+        for (int i = 0; i < eventList.size(); i++)
+        {
+            String a = eventList.get(i).getEventName();
+            String b = statList.get(i).getEventName();
+            if (a.equals(b) == true) {} // Do nothing if it matches
+            else
+            {
+                System.out.println("Data sets in both Events.txt and Stats.txt are not the same and not in the same order!");
+                System.out.println("Ensure that both datasets are consistent!\nProgram Terminating!");
+                System.exit(0);
+            }
+        }
+        System.out.println("Datasets extracted from both files are consistent with each other!");
     }
 }
