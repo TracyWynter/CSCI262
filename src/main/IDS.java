@@ -35,7 +35,7 @@ public class IDS
                 // args[1] -> Events.txt || args[2] -> Stats.txt
                 ipt.startInput(args[1], args[2], eventList, statList); // initial input
  
-                sim.simulateEngine(days, statList); // simulate engine
+                sim.simulateEngine(days, statList, eventList); // simulate engine
                 //analysis.analysisEngine();  
 
             } else {System.out.println("Invalid arguments");}   
