@@ -14,10 +14,10 @@ public class IDS {
         AlertEngine alert = new AlertEngine();
 
         // Custom File Objects
-        ArrayList<events> eventList = new ArrayList<>();
-        ArrayList<stats> statList = new ArrayList<>();
-        ArrayList<stats> newStatList = new ArrayList<>();
-
+        ArrayList<events> eventList = new ArrayList<>();  // Used in input 
+        ArrayList<stats> statList = new ArrayList<>();    // Used in input
+        ArrayList<stats> newStatList = new ArrayList<>(); //Used in Alert Engine
+        
         System.out.println("Verifying Integerity of Event.txt and Stats.txt...");
 
         // check for the right number of args length
@@ -32,6 +32,10 @@ public class IDS {
                 System.out.println("\nProceeding to read in files...");
                 // args[1] -> Events.txt || args[2] -> Stats.txt
                 ipt.startInput(args[1], args[2], eventList, statList); // initial input
+ 
+                sim.simulateEngine(days, statList, eventList); // simulate engine
+                //analysis.analysisEngine(); 
+                alert.alertEngine(newStatList, eventList); //alertEngine
 
                 sim.simulateEngine(days, statList, eventList); // simulate engine
                 analysis.analysisEngine(days); // analyse baseline data

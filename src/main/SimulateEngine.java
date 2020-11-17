@@ -11,62 +11,85 @@ import java.util.ArrayList;
 import java.util.Collections;
 import main.stats;
 
-public class SimulateEngine {
-
+public class SimulateEngine 
+{
     ArrayList<String> newStatsList = new ArrayList<>();
     // activity engine and the logs 
 
-    public void simulateEngine(int days, ArrayList<stats> statList, ArrayList<events> eventList) {
+    public void simulateEngine(int days, ArrayList<stats> statList, ArrayList<events> eventList) 
+    {
         // Printing current progress 
         System.out.println("\nFile Reading Completed");
-        System.out.println("Begin generating and logging ....");
+        System.out.println("Begin generating and logging ...");
+    
         // [2a] Generate Event
-        generateEvents(days, statList, eventList);
+        generateEvents(days, statList, eventList, newStatsList);
+    
         // [2b] Loggin Event
-        logEvents();
+        logEvents(newStatsList);
     }
 
     // Test 5 days
-    private void generateEvents(int days, ArrayList<stats> statList, ArrayList<events> eventList) {
+    public void generateEvents(int days, ArrayList<stats> statList, ArrayList<events> eventList, 
+                                ArrayList<String> nst) 
+    {
         // Stats: [Event Name:Mean:SD]
         // Generate and Store 
         DecimalFormat df2 = new DecimalFormat("#.##"); // format to 2.d.p
 
-        // Outter loop (loop for num of 'days')
-        for (int i = 0; i < days; i++) {
-            newStatsList.add("#Day" + (i + 1));
-            newStatsList.add(String.valueOf(eventList.size()));
+        System.out.println("\nGenerating Events...\n");
+
+        // Outter loop (loop for number of 'days')
+        for (int i = 0; i < days; i++) 
+        {
+            nst.add("#Day " + (i + 1));
+            nst.add(String.valueOf(eventList.size()));
             // Inner loop (loop for the number of events)
-            for (int j = 0; j < eventList.size(); j++) {
+            for (int j = 0; j < eventList.size(); j++) 
+            {
                 String eventName = eventList.get(j).getEventName();
                 double min = (statList.get(j).getMean()) - (2 * statList.get(j).getStandardDeviation());
                 double max = (statList.get(j).getMean()) + (2 * statList.get(j).getStandardDeviation());
                 // C will get double value
-                if (eventList.get(j).getEventType() == 'C') {
-                    newStatsList.add(eventName + ":" + df2.format(generateDouble(min, max)) + ":");
-                } else { // D will get int value
-                    newStatsList.add(eventName + ":" + generateInt(min, max) + ":");
+                if (eventList.get(j).getEventType() == 'C') 
+                {
+                    nst.add(eventName + ":" + df2.format(generateDouble(min, max)) + ":");
+                } 
+                else 
+                { // D will get int value
+                    nst.add(eventName + ":" + generateInt(min, max) + ":");
                 }
 
             }
         }
+
+        // Displaying data being generated
+        for (String s : nst)
+        {
+            System.out.println(s);
+        }
+
     }
 
     // Number generation for the Stats file 
     // I have not set the min and max
-    private int generateInt(double min, double max) {
+    private int generateInt(double min, double max) 
+    {
         int num = (int) (Math.random() * (max - min + 1) + min);
         return num;
     }
 
-    private double generateDouble(double min, double max) {
+    private double generateDouble(double min, double max) 
+    {
         double num = Math.random() * (max - min + 1) + min;
         return num;
     }
 
 
     //  Log up to number of 'days'
-    private void logEvents() {
+    private void logEvents(ArrayList<String> mylist) 
+    {
+        System.out.println("\nSaving events generated to log.txt...");
         // Save into 1 file
         File logFile = new File("log.txt");
         try {
@@ -81,15 +104,18 @@ public class SimulateEngine {
         }
 
         // Writing to log.txt
-        try {
+        try 
+        {
             FileWriter fw = new FileWriter(logFile);
-            for (String s : newStatsList) {
+            for (String s : mylist) 
+            {
                 fw.write(s + "\n"); // writing to file
-                // Debug Code
-                System.out.println(s);
             }
             fw.close();
-        } catch (IOException e) {
+            System.out.println("Events generated saved successfully to log.txt!");
+        } 
+        catch (IOException e) 
+        {
             System.out.println("Fail to write to log.txt");
             System.exit(0);
         }
