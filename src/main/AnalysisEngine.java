@@ -5,10 +5,8 @@
  */
 package main;
 
-/**
- *
- * @author yanyi
- */
+import java.io.File;
+
 public class AnalysisEngine {
     // analysis engine 
 
@@ -16,15 +14,17 @@ public class AnalysisEngine {
         // Printing current progress 
         System.out.println("Event Generation Completed");
         System.out.println("Begin Analysing........");
-        // Measure baseline data  (generated stats)
+        // Measure baseline data  (generated Baseline Stats)
     }
-    
-    private void measureData(){
-        
+
+    // Get Mean and SD
+    private void measureData() {
+        System.out.println("Reading log.txt....");
+        File logFile = new File("log.txt");
+        // For each event
+
+        // Find Mean
+        // Find SD
     }
-    
-    
-    
-    
-    
+
 }
