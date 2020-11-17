@@ -34,8 +34,8 @@ public class IDS {
                 ipt.startInput(args[1], args[2], eventList, statList); // initial input
 
                 sim.simulateEngine(days, statList, eventList); // simulate engine
-                //analysis.analysisEngine(); // analyse baseline data
-                alert.alertEngine(newStatList); //alertEngine
+                analysis.analysisEngine(days); // analyse baseline data
+//                alert.alertEngine(newStatList); //alertEngine
 
             } else {
                 System.out.println("Invalid arguments");
