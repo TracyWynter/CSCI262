@@ -14,6 +14,18 @@ public class AlertEngine{
     // alert engine 
     //To check consitency between "live data" and the base line statistics
     
+    // Class Object
+    Input ipt = new Input();
+    SimulateEngine sim = new SimulateEngine();
+    AnalysisEngine analysis = new AnalysisEngine();
+    //AlertEngine alert = new AlertEngine();
+    
+    // Custom File Objects
+    //ArrayList<events> eventList = new ArrayList<>();
+    //ArrayList<stats> statList = new ArrayList<>();
+    ArrayList<stats> newStatList = new ArrayList<>();
+    ArrayList<events> eventList = new ArrayList<>();
+    
     //Method for getting the new filename
     public String getUserInputNewStatFile()
     {
@@ -51,10 +63,10 @@ public class AlertEngine{
     //Method to read in new statistics file
     public void readNewStatFile(ArrayList<stats> newStatList) 
     {
+        //Calling getUserInputNewStatFile to get the file that contains new statistics
+        String newStatsFile = getUserInputNewStatFile();
 	try 
 	{
-            //Calling getUserInputNewStatFile to get the file that contains new statistics
-            String newStatsFile = getUserInputNewStatFile();
             //int noOfDays = getUserInputNumOfDays();
                         
             File fileObj = new File(newStatsFile); // Create new File opbject
@@ -97,21 +109,52 @@ public class AlertEngine{
 	}
 
 	// Debug Code
-	//Printing data of newStatList	
+	//Printing data of newStatList
+        // Displaying contents of data read in to user
+        System.out.println("Contents of " + newStatsFile + " read in:");
+        String temp = String.format("%-15s", "Event name") + ":";
+        temp = temp + String.format("%-7s", "mean") + ":";
+        temp = temp + String.format("%-18s", "standard deviation") + ":";
 	for (stats s : newStatList)
 	{
+            //System.out.println("Printing data of new statistics file...");
             System.out.println(s);
 	}
-} 
-
-    public void alertEngine(ArrayList<stats> newStatList) 
+    } 
+    public String getUserOptions()
+    {
+        System.out.println("\nWould you like to run the Alert Engine (Y or N): ");
+        Scanner sct = new Scanner(System.in); // Create new Scanner object
+        String optionsToContinue = sct.nextLine(); // Takes in next line
+        String userOption = optionsToContinue.toUpperCase(); 
+        return userOption;
+    }
+    public void alertEngine(ArrayList<stats> newStatList, ArrayList<events> eventList) 
     {	
-        // Read and store data
-        readNewStatFile(newStatList);
+        String optionsToContinue = getUserOptions();
+        //System.out.println(optionsToContinue);
+        
+        if(optionsToContinue.equals("Y")){
+            // Read and store data
+            //System.out.println("Hello World!");
+            readNewStatFile(newStatList);
 
-        // Run activity engine and produce data for the number of days specified
+            // Run activity engine and produce data for the number of days specified
+            int noOfDays = getUserInputNumOfDays();
+            sim.simulateEngine(noOfDays, newStatList, eventList);
 
-        // Run analysis engine to produce daily totals
-
+            // Run analysis engine to produce daily totals
+        }
+        else if(optionsToContinue.equals("N"))
+        {
+            System.out.println("Exiting... ");
+            System.exit(0);
+        }
+        else
+        {
+            System.out.println("Error! Invalid Options!");
+            //getUserOptions();
+            alertEngine(newStatList, eventList);
+        }
     }
 }
