@@ -1,5 +1,5 @@
 // Package
-package main;
+//package main;
 
 // Import Libraries
 // For Variables

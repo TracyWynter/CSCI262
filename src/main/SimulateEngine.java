@@ -1,5 +1,5 @@
 // Package
-package main;
+//package main;
 
 // Import Libraries
 import java.io.File;
@@ -13,7 +13,7 @@ import main.stats;
 
 public class SimulateEngine 
 {
-    ArrayList<String> newStatsList = new ArrayList<>();
+    private ArrayList<String> newStatsList = new ArrayList<>();
     // activity engine and the logs 
 
     public void simulateEngine(int days, ArrayList<stats> statList, ArrayList<events> eventList) 
@@ -26,7 +26,7 @@ public class SimulateEngine
         generateEvents(days, statList, eventList, newStatsList);
     
         // [2b] Loggin Event
-        logEvents(newStatsList);
+        logEvents(newStatsList, "log.txt");
     }
 
     // Test 5 days
@@ -87,11 +87,11 @@ public class SimulateEngine
 
 
     //  Log up to number of 'days'
-    private void logEvents(ArrayList<String> mylist) 
+    public void logEvents(ArrayList<String> mylist, String filename) 
     {
-        System.out.println("\nSaving events generated to log.txt...");
+        System.out.println("\nSaving events generated to " + filename + "...");
         // Save into 1 file
-        File logFile = new File("log.txt");
+        File logFile = new File(filename);
         try {
             // create file 
             if (logFile.exists()) {
@@ -99,7 +99,7 @@ public class SimulateEngine
                 logFile.createNewFile();
             }
         } catch (IOException e) {
-            System.out.println("Fail to create log.txt");
+            System.out.println("Fail to create " + filename);
             System.exit(0);
         }
 
@@ -112,11 +112,11 @@ public class SimulateEngine
                 fw.write(s + "\n"); // writing to file
             }
             fw.close();
-            System.out.println("Events generated saved successfully to log.txt!");
+            System.out.println("Events generated saved successfully to " + filename +"!");
         } 
         catch (IOException e) 
         {
-            System.out.println("Fail to write to log.txt");
+            System.out.println("Fail to write to " + filename);
             System.exit(0);
         }
     }

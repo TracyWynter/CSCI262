@@ -1,5 +1,5 @@
 // Package
-package main;
+//package main;
 
 // Driver Class
 import java.util.ArrayList;
@@ -19,14 +19,14 @@ public class IDS {
         // Class Object
         Input ipt = new Input();
         SimulateEngine sim = new SimulateEngine();
-        AnalysisEngine analysis = new AnalysisEngine();
+        analyseEngine analysis = new analyseEngine();
         AlertEngine alert = new AlertEngine();
 
         // Custom File Objects
         ArrayList<events> eventList = new ArrayList<>();  // Used in input 
         ArrayList<stats> statList = new ArrayList<>();    // Used in input
         ArrayList<stats> newStatList = new ArrayList<>(); //Used in Alert Engine
-
+        ArrayList<stats> baseLineStats = new ArrayList<stats>();
         System.out.println("Verifying Integerity of Event.txt and Stats.txt...");
 
         // check for the right number of args length
@@ -44,15 +44,15 @@ public class IDS {
                 sim.simulateEngine(days, statList, eventList); // simulate engine
 
                 analyseEngine ae = new analyseEngine();
-                ae.start(eventList);
+                ae.start(eventList, baseLineStats);
 
-                /*
-                analysis.analysisEngine(days); // analyse baseline data
-                alert.alertEngine(newStatList, eventList); //alertEngine
+                
+                //analysis.analyseEngine(days); // analyse baseline data
+                alert.alertEngine(newStatList, eventList, baseLineStats); //alertEngine
                 
                 String userOption = getUserChoiceContinue();
                 if (userOption.equals("Y")) {
-                    alert.alertEngine(newStatList, eventList);
+                    alert.alertEngine(newStatList, eventList, baseLineStats);
                 } else if (userOption.equals("N")) {
                     System.out.println("Exiting... ");
                     System.exit(0);
@@ -61,7 +61,7 @@ public class IDS {
                     System.out.println("Exiting...from the system!");
                     System.exit(0);
 
-                }*/
+                }
             } 
             else 
             {

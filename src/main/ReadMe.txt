@@ -8,3 +8,15 @@ To Compile run the command:
 javac *.java
 java IDS Events.txt Stats.txt 10
 
+Group Members
+Yan Ying Ling 
+6748429
+T02
+
+Samuel Kwek Yong Chyi
+6744321
+T03
+
+Celine Chan Chin Hee
+6743596
+T03

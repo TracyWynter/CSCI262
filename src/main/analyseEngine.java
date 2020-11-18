@@ -1,5 +1,5 @@
 // Package
-package main;
+//package main;
 
 // Import Libraries
 import java.io.File;
@@ -19,38 +19,38 @@ public class analyseEngine
 {
     // Variables
     // Used to hold all the data from log.txt
-    private ArrayList<ArrayList<logs>> logList2 = new ArrayList<ArrayList<logs>>();
+    private ArrayList<ArrayList<logs>> logList4 = new ArrayList<ArrayList<logs>>();
 
     // Used to hold all the mean and Standard Deviation for each event
-    private ArrayList<stats> baseLineStats = new ArrayList<stats>();
+    //private ArrayList<stats> baseLineStats2 = new ArrayList<stats>();
 
     // Used to hold all the total values  
-    private ArrayList<ArrayList<logs>> totalList = new ArrayList<ArrayList<logs>>();
+    private ArrayList<ArrayList<logs>> totalList2 = new ArrayList<ArrayList<logs>>();
 
     // Main Constuctor
     public analyseEngine() {}
 
-    public void start(ArrayList<events> eventList)
+    public void start(ArrayList<events> eventList, ArrayList<stats> baseLineStats2)
     {
         System.out.println("\nBeginning Analysis...");
         // Reads in the log.txt and generates a 2D ArrayList of "log" objects
-        readInLogFile();
+        logList4 = readInLogFile("log.txt");
 
         // Can only execute when a 2D arraylist of "log" objects are supplied in. (e.g. logList2)
-        calculateBaselineStats();  
+        baseLineStats2 = calculateBaselineStats(logList4);  
         
         // Can only execute when 2D arraylist of "log" objects are supplied
         // with an arraylist of baseLine Stats.
-        calculateTotals(eventList);
+        totalList2 = calculateTotals(eventList, logList4, baseLineStats2);
 
         // Method will take in the totalList ArrayList and baseLineStats 
         // ArrayList and output data to a file.
-        exportToFile();
+        exportToFile(totalList2, baseLineStats2);
     }
 
     // Method will take in the totalList ArrayList and baseLineStats 
     // Creates and writes data to file.
-    public void  exportToFile()
+    public void  exportToFile(ArrayList<ArrayList<logs>> totalList, ArrayList<stats> baseLineStats)
     {
         File dataFile = new File("data.txt");
         try
@@ -122,8 +122,10 @@ public class analyseEngine
         }
     }
 
-    public void calculateTotals(ArrayList<events> eventList)
+    public ArrayList<ArrayList<logs>> calculateTotals(ArrayList<events> eventList, ArrayList<ArrayList<logs>> logList2,
+                                                        ArrayList<stats> baseLineStats)
     {
+        ArrayList<ArrayList<logs>> totalList = new ArrayList<ArrayList<logs>>();
         // Loop through for each event 
         int numberOfDays = logList2.size();
         int numberOfEventsPerDay = logList2.get(0).size();
@@ -185,14 +187,16 @@ public class analyseEngine
                 System.out.println(totalList.get(k).get(j));
             }
             System.out.println("");
-        }       
+        } 
+        return totalList;
     }
 
     // Method takes in the list of log data extracted from log.txt
     // and calculates the mean and standard deviation
-    public void calculateBaselineStats()
+    public ArrayList<stats> calculateBaselineStats(ArrayList<ArrayList<logs>> logList2)
     {
         System.out.println("Calculating Baseline Stats...\n");
+        ArrayList<stats> baseLineStats = new ArrayList<stats>(); 
         // Loop through for each event 
         int numberOfEventsPerDay = logList2.get(0).size();
         for (int i = 0; i < numberOfEventsPerDay; i++)
@@ -243,21 +247,24 @@ public class analyseEngine
         }
 
         // Displaying the base line stats calculated
-        System.out.println("Here are the base line stats calculated from log.txt...");
+        System.out.println("Here are the base line stats calculated from...");
         String temp = String.format("%-15s", "Event name") + ":";
         temp = temp + String.format("%-7s", "mean") + ":";
         temp = temp + String.format("%-18s", "standard deviation") + ":";
         System.out.println(temp);
         for (stats s : baseLineStats) {System.out.println(s);}
+
+        return baseLineStats;
     }
 
     // Method reads in the entire log file and created a 2D array of log objects
-    public void readInLogFile()
+    public ArrayList<ArrayList<logs>> readInLogFile(String filename)
     {
-        System.out.println("\nReading in log.txt file...");
+        System.out.println("\nReading in "+ filename + " file...");
+        ArrayList<ArrayList<logs>> logList2 = new ArrayList<ArrayList<logs>>();
         try 
         {
-            File logFile = new File("log.txt");  // File object
+            File logFile = new File(filename);  // File object
             Scanner scn = new Scanner(logFile);  // Scanner object
 
             int eventCount = 0;
@@ -304,6 +311,7 @@ public class analyseEngine
             }
             System.out.println("");
         }
-        System.out.println("Data read in from log.txt successfully!\n");
+        System.out.println("Data read in from " + filename + " successfully!\n");
+        return logList2;
     }
 }

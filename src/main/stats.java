@@ -1,5 +1,5 @@
 // Package
-package main;
+//package main;
 
 public class stats 
 {
