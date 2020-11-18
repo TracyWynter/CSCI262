@@ -35,11 +35,11 @@ public class IDS {
  
                 sim.simulateEngine(days, statList, eventList); // simulate engine
                 //analysis.analysisEngine(); 
-                alert.alertEngine(newStatList, eventList); //alertEngine
+                //alert.alertEngine(newStatList, eventList); //alertEngine
 
-                sim.simulateEngine(days, statList, eventList); // simulate engine
+                //sim.simulateEngine(days, statList, eventList); // simulate engine
                 analysis.analysisEngine(days); // analyse baseline data
-//                alert.alertEngine(newStatList); //alertEngine
+                alert.alertEngine(newStatList, eventList); //alertEngine
 
             } else {
                 System.out.println("Invalid arguments");

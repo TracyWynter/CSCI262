@@ -169,6 +169,7 @@ public class AlertEngine
             //for (String s : newLogList)
             //{System.out.println(s);}
             // Run analysis engine to produce daily totals
+            analysis.analysisEngine(noOfDays);
         }
         else if(optionsToContinue.equals("N"))
         {
