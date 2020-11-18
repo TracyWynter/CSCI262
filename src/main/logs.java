@@ -7,13 +7,11 @@ public class logs
     private String eventName;
     private double value;
 
-
     // Default Constructor
     public logs()
     {
         setEventName("");
-        setValue(0.0);
-
+        setValue(0.0);    
     }
 
     // Main Constructor
@@ -21,14 +19,13 @@ public class logs
     {
         setEventName(eventName);
         setValue(value);
-
     }
 
     // Copy Constructor
     public logs(logs l)
     {
         setEventName(l.getEventName());
-        setValue(l.getValue());     
+        setValue(l.getValue());
     }
 
     // Accessor Method
@@ -41,7 +38,6 @@ public class logs
         return value;
     }
 
-
     // Mutator Method 
     public void setEventName(String eventName)
     {
@@ -51,7 +47,6 @@ public class logs
     {
         this.value = value;
     }
-
 
     // Display Method
     @Override

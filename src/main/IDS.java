@@ -41,12 +41,12 @@ public class IDS {
                 System.out.println("\nProceeding to read in files...");
                 // args[1] -> Events.txt || args[2] -> Stats.txt
                 ipt.startInput(args[1], args[2], eventList, statList); // initial input
-
                 sim.simulateEngine(days, statList, eventList); // simulate engine
-                //analysis.analysisEngine(); 
-                //alert.alertEngine(newStatList, eventList); //alertEngine
 
-                //sim.simulateEngine(days, statList, eventList); // simulate engine
+                analyseEngine ae = new analyseEngine();
+                ae.start(eventList);
+
+                /*
                 analysis.analysisEngine(days); // analyse baseline data
                 alert.alertEngine(newStatList, eventList); //alertEngine
                 
@@ -61,11 +61,15 @@ public class IDS {
                     System.out.println("Exiting...from the system!");
                     System.exit(0);
 
-                }
-            } else {
+                }*/
+            } 
+            else 
+            {
                 System.out.println("Invalid arguments");
             }
-        } else {
+        } 
+        else 
+        {
             System.out.println("Invalid arguments or length");
         }
     }
