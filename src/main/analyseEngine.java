@@ -43,8 +43,83 @@ public class analyseEngine
         // with an arraylist of baseLine Stats.
         calculateTotals(eventList);
 
-        // EXPORT TO FILE!![NOT DONE]
+        // Method will take in the totalList ArrayList and baseLineStats 
+        // ArrayList and output data to a file.
+        exportToFile();
+    }
+
+    // Method will take in the totalList ArrayList and baseLineStats 
+    // Creates and writes data to file.
+    public void  exportToFile()
+    {
+        File dataFile = new File("data.txt");
+        try
+        {
+            // Create the data file.
+            if (dataFile.exists()) 
+            {
+                dataFile.delete();
+                dataFile.createNewFile();
+            }
+        }
+        catch (IOException e) 
+        {
+            System.out.println("Fail to create data.txt");
+            System.exit(0);
+        }
         
+        // Writing to the data.txt
+        try 
+        {
+            FileWriter fw = new FileWriter(dataFile);
+
+            String header = String.format("%-15s", " ");
+            for (int u = 0; u < totalList.size(); u++)
+            {
+                header = header + String.format("%-10s", ":Day " + (u+1) + ":");
+            }
+            fw.write(header + "\n");
+                
+            for (int k = 0; k < totalList.get(0).size(); k++)
+            {// Loop by event
+                // Print out by event name
+                String temp = "";
+                temp = temp + totalList.get(0).get(k).getEventName();
+                temp = String.format("%-15s", temp);
+
+                // Loop by day
+                for (int j = 0; j < totalList.size(); j++)
+                {
+                    String temp2 = String.valueOf(totalList.get(j).get(k).getValue());
+                    temp2 = ":" + temp2 + ":";
+                    temp2 = String.format("%-10s", temp2);
+                    temp = temp + temp2;
+                }
+                fw.write(temp + "\n");
+            }
+            fw.write("\n");
+
+            // Header for Base Line Stats
+            String temp3 = String.format("%-15s", "Event name") + ":";
+            temp3 = temp3 + String.format("%-7s", "Mean") + ":";
+            temp3 = temp3 + String.format("%-18s", "Standard Deviation") + ":";
+            fw.write(temp3 + "\n");
+
+
+            for (int g = 0; g < baseLineStats.size(); g++)
+            {
+                String compile = String.format("%-15s", baseLineStats.get(g).getEventName()) + ":";
+                compile = compile + String.format("%-7s", baseLineStats.get(g).getMean()) + ":";
+                compile = compile + String.format("%-18s", baseLineStats.get(g).getStandardDeviation()) + ":";
+                fw.write(compile + "\n");
+            }       
+            fw.close();
+        } 
+        catch (IOException e) 
+        {
+            System.out.println("Fail to write to data.txt");
+            System.exit(0);
+        }
     }
 
     public void calculateTotals(ArrayList<events> eventList)
@@ -70,7 +145,7 @@ public class analyseEngine
             String temp1 = formatDecimal.format(sum);
             double output1 = Double.valueOf(temp1);
            
-            lg.add(new logs("Daily Total: ", output1)); 
+            lg.add(new logs("Daily Total ", output1)); 
 
             // calculate for each event on each day
             for (int k = 0; k < numberOfEventsPerDay; k++)
