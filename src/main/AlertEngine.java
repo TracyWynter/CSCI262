@@ -145,7 +145,7 @@ public class AlertEngine
     } 
     public String getUserOptions()
     {
-        System.out.print("\nWould you like to run the Alert Engine (Y or N): ");
+        System.out.print("\nWould you like to run the Alert Engine(Y or N): ");
         Scanner sct = new Scanner(System.in); // Create new Scanner object
         String optionsToContinue = sct.nextLine(); // Takes in next line
         String userOption = optionsToContinue.toUpperCase(); 
@@ -169,7 +169,8 @@ public class AlertEngine
             //for (String s : newLogList)
             //{System.out.println(s);}
             // Run analysis engine to produce daily totals
-            analysis.analysisEngine(noOfDays);
+            analysis.analysisEngine(noOfDays);           
+            
         }
         else if(optionsToContinue.equals("N"))
         {

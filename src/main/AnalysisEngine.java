@@ -24,6 +24,7 @@ public class AnalysisEngine {
         // Measure baseline data  (generated Baseline Stats)
         measureData(days);
         generateDataFile();
+        
     }
 
     // Get Mean and SD
@@ -52,7 +53,7 @@ public class AnalysisEngine {
             }
             // After storing the file 
             DecimalFormat df2 = new DecimalFormat("#.00");  // format to 2.d.p (for mean and SD)
-            int dayCounter = 0;
+            //int dayCounter = 0;
             double totalValue = 0.0;
             // Add for every Event
             for (int i = 0; i < eventCount; i++) {
